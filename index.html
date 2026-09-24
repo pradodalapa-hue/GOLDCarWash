@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JDP INDUSTRIAL - SISTEMA SECURE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        body { background: #050505; color: #fff; font-family: 'Share Tech Mono', monospace; overflow: hidden; }
+        .neon-border { border: 2px solid #00f2ff; box-shadow: 0 0 15px rgba(0, 242, 255, 0.2); }
+        .neon-text { color: #00f2ff; text-shadow: 0 0 10px rgba(0, 242, 255, 0.5); font-family: 'Orbitron', sans-serif; }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <!-- ASSINATURA DE EMBUTIMENTO JDP SUPREME -->
+    <div id="jdp-lock-screen" class="w-full max-w-md p-8 bg-black rounded-xl neon-border text-center">
+        <h1 class="neon-text text-2xl font-bold mb-2">JDP SECURITY KERNEL</h1>
+        <p class="text-[10px] text-yellow-500 uppercase tracking-widest mb-6">Matriz Criptografada em 23/09/2026, 20:54:26</p>
+        
+        <div class="mb-6">
+            <input type="password" id="unlock-pass" class="w-full p-3 bg-black border border-cyan-900 rounded text-cyan-400 text-center outline-none focus:border-cyan-400" placeholder="INSIRA A CHAVE DE ACESSO">
+        </div>
+        
+        <div class="flex items-center justify-center gap-2 mb-6">
+            <input type="checkbox" id="remember-pass" class="accent-cyan-400 cursor-pointer" checked>
+            <label for="remember-pass" class="text-[10px] text-gray-500 uppercase cursor-pointer">Lembrar senha neste dispositivo</label>
+        </div>
+
+        <button onclick="attemptUnlock()" class="w-full py-3 bg-gradient-to-r from-cyan-950 to-cyan-700 border border-cyan-400 text-white font-bold uppercase tracking-wider rounded hover:scale-[1.02] transition-all">
+            Desbloquear Projeto
+        </button>
+        <p id="error-msg" class="text-red-500 text-xs mt-4 hidden">CHAVE DE ACESSO INCORRETA</p>
+    </div>
+
+    <script>
+        const _payload = "96275fe90454054f4afba44f4c742789:85342eb364e74c41dee95553:e4af9fdcff9a846801cf5b25c637058d6adb3d70c6391a49b0fb454a4085c0d4027fa011ec777145286263b0af8ef7083ea7269c22d156fdb6f4d4c455baa1bf6f40eddc49c3eb4cf63bc35ad78271c23b30f29c42e38409cf985cfc6f7303e21b6df80b47264e92d7e9c9cdc61a7e73fd1a5b7476b5612e3fd634e7deb97566c3cf3f1dee3c4ef811469d362e08f720f8c55bc4ece5d9c9e6c56006db6e96da2c934271c1c815960d4e2086a151b7918e1e7ff665362cbd75c5ae6a85259a8c5d00335661cfa8aaf6855be9618280d865d842395dc8206708bb2deb90d197af80189327206b05f9970564956d99682fba599495fcc917e15a40f40cd20c020758dea1795915e50c69999c8fcd2f0019de07b56262ea192c44009a980248c2dc9d1154be684b04b7a0f3307dbf40327e43e44b32e9471046f779b94f1d2766991f280b2bfbec9dff63c62e38c148cd8434843ec542870907bddb7093aff4b67a74ce07e447f44086b01b540cfc7b880df9ef338a575d075f459f455f988e60cb1d2de60c9a041a5bae31f1eab803c17e21ee1d7919c99506abc190a801312fc23d8d25df0d5588a4a48fbce08e286af164c907cd0c33342b6fc219b7bf584ff254784bf0caf475cadae0596fb9bc02bfb726a831d0b6940af037b0f2527576c0dccc751ca3176b91c44ce9e69aa5cfa32a9ecc969237e7d13fb72dcc03b2958236a5ddb0ec513f7a046a3f971d6b19076dd0cca776e123795c773f6b3f5f94cf6a62031bd5806b9b5662df5e0b3fab59036e8e0329219160606ac8941c4287b469aec9581762e997e70157e6a6887e56d63560614b2e13c5949e99998e69032df441007271ceaea644c394f6ee4df66e4d911617335370ffe596560d2582b649024249ee75bacfd27d57e0683ed345c7c02e2bb5aec3cd6c4888b78665dcfb6c2bb63002d8bdce504228c911963dafebdb6379a29db63c30dd73798e37156bf2f11bcaf2328ac69e212ca29b39494473ed8472844efd3d63377a6e4ff97d1014dd8daff4da8ebcb609c6897a10f4e8f4c23b379ee071bf5ad89f042b0ee506c763397ec3ac1a9af1a1a65ca2a72a524007d05abacd8ede38fc8bfa4a2ed54ba47fe9d1c877227ac89d3e9ec8782bb2e2d91cc5117e3cdb1fa8818b31bbc2a252d921cc52a1d792c9ed087632effc98641dfcb5f5f7905ac6a80b9f2398e6f311803bcf94b9d03ec0157f4871abbe6a571d795ce81e751ecd8df1dbf607d32bc0bbaa6c2386279df189ef75bf67904164b979e7eb6cf37505218e226e70845e1000195b68c0028aef7fc7c459fcf28630f9e6dc1a24166e912c844a3ff718c56d221c7427c12845febfe2a859ed23d4000cb5647adb6b2046ec5763a5c7dd61a9b692bc41fc0ceb43f4b7c74605533fe8b8bf49762c6fe97807308e0a90a159caa4f8cdd060fee22b05e49584f28424341c29c606b5f7c24fac1cab323a3f54d9957f5fbbac79ec8ffd13b9c540b5bc0e67501173b0b85933ce6ead059233fd1d8e8b4e2df8d163301649b5586ace63d7907c2ebbe049f31deebcd80042bed91a6e4aaa8a1a376651b985eceb6e81066a8d304bfcd5f14a7697c4e5fdf36a9e26b8c96893ec21f6b85abad309ca28e51053248da0310cd0e7516388e22d83883c8c574d3cc142d0f54497deca8f14e50701f0656d5d33910a3b4fd8c8254f94562dbb0593e88688873ff99bf3815f92c5dad1bef01317c59cc06c0ac3826882821548e42f4fe3120cc77cc83044848382ec4f6b5bac73c5fb1a03aca46a479fefcba93c34b0cc5475dc341ebadf00113223d040107bb12330ff0da9b1b6508ab7cec14c5d27e9ebad980fd459691b438e37503bb15b5169f62d4b3fae9aa4b739c742508be2ba386704919ad84468b61ec3c34b3b43f93408c4d763430edfc3f26eb0615d2a69d6504c9bc8fce5410854ad2d897ef5ade8c68b45cbd4026c304374e09d39dd2a769c9528f0d7f4d86fb4a2713738d90097ebebb56b65d8c07042ea5b6e0a5836ae5a50fb2ead5464e62da3349dbc4ce4e00cdf0446325b8ff179ee6baefb4f7e8ad938804b37a1bda82ce9f97a898d8983b059d229596a1e7c6e14d5d87da9c8582838467ecd0638c322f236476a7f84c4c1d5f799e2987c150bcd94c115ba2c34d8d3c359c794aa97d8d6963a8ab510d16c76ee1edc876b6359e6d080fc17af40a39bb6958812e6996d9de752621a708a6810495446e5fe83f68f44182048d204079100085ff3911f49d8ce8474608325857a3f6100f0414ea98418f5079601571fa8e23235896b9419e5e7974d3dc8633370a6508accbe756253983f4642bcc9233957b4f344d0eef5a64ec4d5926160ce6e07d8765c0c76fbfdfe7dd25fa466453a29cc1c432010c4f0fee36f75cd76ce8cdb9f0ccbf5c8ea1c34acde83f540b7bd0feef2c0d38f5793e1ecd9f9e2b4f9de2cca3bad9e2cd4cf9ba11f0a4bda0454d6ab716cd82963c1f3122ee3448a945de80731c4efe8bc2851ae26a53fa12c24fc8a6367a0b829cf9260e00c69b02147add322ce46f471f33e4727d1ee68220aab0aa4d59036e5e50fdab6f6b1a6fd2a4a7f73462dd04f511efb711ccc4e1f25a6c84ff55918a4b48e4cd2e4ed0ec784464ec0e42156fd4d7fc5a174aab473510dd0dcffa19da1c30779da48e39fb1d1dd73a2fe8015456f88cc599b789605aca25c560f258872e5eadd4e6520bc4fb9c8695c0dbe11f0755fde73ee710f64fdfa57050561435063bb81e290729318185ec568406d879bb3044897df02fc3b1b6c77909568c35a5d7b2bb5f128984654fb5689d7a04d987e178a9394a02fa186c3e97cefe69c25d0a3821227d6f6ed3920ecab139904655b7c373b34615734b0a998c127e66564bd04c7e1da5951e9fb48d63a53b6f9cbcfecc998f80b43b9844641440580ae557defcf23e9f73dd73952957e937c4a0d77c18bd6bbcfa8141accb628ef714b72105ffe7735a305517c6dca6b6d8c0785929eeaedf498697b146b8793368068dc95dd1bcddd69fa5ee2ec567774ae8dbb47b892de5594c514f79536b4b526a4e3d3511276ced4790874c393eb0b8270176c969384bcf86e8c007df452ef266cc1c69fc5f7ee3edf6f8c8d6c146e3c837d77f8e8b1a17e3b6d4b1f79a1dfbb48f0fcc92a01ebb2c98f02fe81e320262ba6279eb00145757091bf16ea93aa6cd3652e41af7c92121727269d04a36c68fc45eeb0a7f399bf2b3af1e0638a228bd8c56f87d8919ee977438bdbf29ba43fc8a934a1222e0e2f0e3cb4c7aa685a3de1a51406f09409922abd94d270cfb64b6db4356906b9fe05bdfdaaf5726f90d97abfac7583733273e9f8714d97f940dd69f56831a7756ccf1f89bce2c1f341870374c164232784cbcb5cdf15084f29969fc8039802ad25e3714ab0ff3b00e93c8c788652ff12770979d52d10b93d6c935496ad9d8368a0a21970d84173c2d6cb66857d7e9045f6c0b462db985299d427f368b30b5b55b2441579dd24a537c241081ce79b58bb59a45be7fcb5d80828c1327aac7ebbeba9f87ee4356d8b9091402a5f683a74e35244f98bbb2e7c2766ed11355d3ba9ff083b1d97833086fe2792e48cd9283b1d140aa000b26bb511378f2dee0a74b2c47546d3316c803f2d5c407a8f961c0b49d2db7a007539f46f8681d8c81fa43c67f09aab6946cef41c86d2ab3159eb40d1306327e1def2009ac8e6527bd516aa9be66b0ded84f482a7d5788f455ee94054284da3bb7e6a53bf763568c8daa68ba49cc719ad620746c1d9c59343cbcc166864e2047f521a7e35f3e2ee019c74554e70c73e2b4d11cd5008c7bf14586c3c6fe9a03af6b86163fb19a616898a70e61faa23c9f6d670ade06556d8d1217d29e8796774866710d4f84f4546ae5ed775bb6a26c246c1022426e1b2016c1fe9ff5c69bcfe8f3dfaf2c8a9dfeb09da0599377fc2eee7f0c6823270556d8e143b9eea84d17d1edb75d40f0ccf330fcd41f8a4d6ced844d38baa9fa2e5d69fff4717464077ff1a8f6f81b50e3dd2b6f846ea982c7e6d36e82b50643ef18da9bf386f3a6ff9f4657eab414333ea9f38ceec4a2ea5f4c87e2ca0ee7f34bed956d99c96dc95963d0715f777fad8633e8a576156efffa197ee6b0521d1d8c67913639b194eb2e95ec09a46ee1bfe7d11a806ecd3b5e7a1577b7ed5a51240f69530c6d99c633e9233aff193fa4254b035ab9c4f498a2c98bcc4d1d185aa3156652e061f8b80e1178d6c09a993e416225a1fdf5f861d0cffc857e977af38a57b95bb61d8a161057cb5323c1284290ce88ec82358bb1bb5e000e388b56f627797b52f95e124f2bee053b79b0d39ab8407d26980434e4c5b4db86b4da128a61095178f493fe075821b17a25fdd4b353f1472537f8d36345c34d6b957e909cec1575b6fcc6e63b7fc355e20dbf9e60bf68917c637499be8c3a5aba4b285beec9623cd18bff23afe332355c0f7b8899da5e68d4f88e6f44a4ccc8bffc3eb85c68de34cdef8c49ad7eb1e2f9284410b01cb2636b7c2e50b14837d124888581f3d88f4c3445a4608dd4e04f98f1fb5d8714a7c092bd24986cf242b07fa8e4694588d177adf273b604b860e2d02249ac6fc0c5a75a243a0d33810d2dbfa09a5aa53d5b88c0e03b45952f24b3d71646596ff1dfdc2f3b3bfb1b4318b2fb24fcdc2ce14cac9f258fdf678948e07b65c0dc185dcb638609d2016a50dbc90d69d2bc7f5d798d8d7bb58317f944b819730bdd36da245f1026dbd6ce6eaedb4adf75fc32ac613c5be3e3c09283530806684d0b81359d428658a8fe254d0bee802e23ec20ac597ce5fb1e2234cb018b1986186cd8d54cd03cba4e83d0e8bb346a5c3d95ec1b98d98bff48aa68fa3fdae59c5c9a7b66e386e07319ca577ce3966e60f0e934ba16c17ed765d520e44ae50dea8518c51e91ffb3e946b25a241c9994adefdeb5d4eb5344969b8273397c5f9c0ca0c98e419bda092db5328e919219b44a2ca825d33f9ba9ec0dace4d574a8a01c79b1e784dce034dfdf8a2c346629cad85a5f65e30e07e5bf8e0846a9152c611a7ed4a2ee756ab3ccda94ee018413f9c62ef6ad02c7ea485cfe136341c895ae8908465febb7a648365bc9f4ead42fe32387fac6a1ed65fe17e3ead69593b817f7da6fec8ca64f25335046db4b009119f45e2ca15d31fd5032a7032701c271803c83cd99e206ad661d795ea2d06e1fc05f396341b911a3828013deeaeb5e919e108ea0ba42c7d2ba565206cf2c7b69d761aa58cbac9429d30089db5027e8b6af481280f14458c733af965c11e75cb80a0cb6713c5261987de43795eed1a2e48bd16586a20bf81b6d06a6856b6551b4549a8fb0345dff7800beb4fb13ec38dae5c83c078e30c2cb6eded26851ee468576fcd0fe39d1e3c6d1f4dde39dd34d141a202079e150459a61490dfc2660c081a12f8c9d268";
+        const lockScreen = document.getElementById('jdp-lock-screen');
+        const passField = document.getElementById('unlock-pass');
+        const errorMsg = document.getElementById('error-msg');
+        const rememberCheck = document.getElementById('remember-pass');
+
+        // Auto Derivação de Chave AES-256-GCM
+        async function deriveKey(password, salt) {
+            const encoder = new TextEncoder();
+            const baseKey = await crypto.subtle.importKey("raw", encoder.encode(password), "PBKDF2", false, ["deriveKey"]);
+            return crypto.subtle.deriveKey(
+                { name: "PBKDF2", salt: salt, iterations: 100000, hash: "SHA-256" },
+                baseKey,
+                { name: "AES-GCM", length: 256 },
+                false,
+                ["decrypt"]
+            );
+        }
+
+        async function decryptPayload(combinedHex, password) {
+            const parts = combinedHex.split(":");
+            const salt = new Uint8Array(parts[0].match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
+            const iv = new Uint8Array(parts[1].match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
+            const encrypted = new Uint8Array(parts[2].match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
+            const key = await deriveKey(password, salt);
+            const decrypted = await crypto.subtle.decrypt({ name: "AES-GCM", iv: iv }, key, encrypted);
+            return new TextDecoder().decode(decrypted);
+        }
+
+        async function attemptUnlock() {
+            const enteredPassword = passField.value.trim();
+            if(!enteredPassword) return;
+
+            try {
+                const decryptedHTML = await decryptPayload(_payload, enteredPassword);
+                
+                // Se descriptografou com sucesso, salva no localStorage se solicitado
+                if(rememberCheck.checked) {
+                    localStorage.setItem('jdp_saved_key', enteredPassword);
+                } else {
+                    localStorage.removeItem('jdp_saved_key');
+                }
+
+                // Injeta o código descriptografado no DOM e substitui o documento inteiro
+                document.open();
+                document.write(decryptedHTML);
+                document.close();
+            } catch(err) {
+                errorMsg.classList.remove('hidden');
+                passField.value = "";
+            }
+        }
+
+        // AUTO-LOGIN: Verifica se já existe uma chave salva localmente neste dispositivo
+        window.onload = async () => {
+            const savedKey = localStorage.getItem('jdp_saved_key');
+            if(savedKey) {
+                try {
+                    const decryptedHTML = await decryptPayload(_payload, savedKey);
+                    document.open();
+                    document.write(decryptedHTML);
+                    document.close();
+                } catch(err) {
+                    // Se falhar (ex: chave antiga/mudou), limpa o storage e mostra a tela de login
+                    localStorage.removeItem('jdp_saved_key');
+                }
+            }
+        };
+
+        // Permite pressionar Enter para desbloquear
+        passField.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") attemptUnlock();
+        });
+    </script>
+</body>
+</html>
