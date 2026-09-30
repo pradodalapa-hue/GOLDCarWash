@@ -1,0 +1,196 @@
+<application version="4.9" name="JDP LAVA JATO - NO GRAU SUPREME">
+    <metadata>
+        <loja_id>GOLD_CAR_WASH_01</loja_id>
+        <estabelecimento>GOLD CAR WASH Ltda</estabelecimento>
+        <instagram>https://www.instagram.com/goldcarwasham</instagram>
+        <app_url>https://pradodalapa-hue.github.io/GOLD_CAR_WASHapp/</app_url>
+        <pix_base_url>https://pradodalapa-hue.github.io/GOLD_CAR_WASH/</pix_base_url>
+    </metadata>
+
+    <configurations>
+        <firebase>
+            <api_key></api_key>
+            <database_url>https://dony-burguers-default-rtdb.firebaseio.com</database_url>
+        </firebase>
+        <default_banco>
+            <banco>PIX PADRÃO</banco>
+            <chave_pix>6a0cad4f-34f5-44c0-b1d6-2de0c43ca9d8</chave_pix>
+            <emissor>PAULO HENRIQUE ALMEIDA DE PINHO</emissor>
+            <cidade>MANAUS</cidade>
+        </default_banco>
+    </configurations>
+
+    <ui_components>
+        <screen id="display-principal">
+            <button id="btn-power" action="togglePower()" />
+            <screen_off id="tela-off">
+                <image id="img-pub" src="https://raw.githubusercontent.com/pradodalapa-hue/fotos-industrial/main/img/jdp_1790202687024_1001569745.jpg" />
+            </screen_off>
+            
+            <visor id="visor-caixa">
+                <banner id="banco-ativo-banner">BANCO CONFIGURADO: CARREGANDO...</banner>
+                <qr_code id="qrcode-caixa" />
+                <text_display id="valor-display">R$ 0,00</text_display>
+                <barcode_box>
+                    <label>CHAVE PIX / COPIA E COLA</label>
+                    <code_text id="payload-txt">Gerando...</code_text>
+                </barcode_box>
+                <info id="info-venda" />
+                <button action="enviarWhatsApp()">ENVIAR WHATSAPP</button>
+                <button action="resetTudo()">CANCELAR</button>
+            </visor>
+
+            <visor id="visor-caderninho">
+                <header class="caderninho-header">
+                    <title><i class="fas fa-book"></i>CADERNINHO LAVA JATO</title>
+                    <actions>
+                        <button action="imprimirCaderninho()"><i class="fas fa-print"></i> IMPRIMIR</button>
+                        <button action="compartilharCaderninhoFotoZap()"><i class="fab fa-whatsapp"></i> FOTO ZAP</button>
+                        <button action="fecharCaderninho()"><i class="fas fa-times"></i></button>
+                    </actions>
+                </header>
+                <list id="lista-caderninho" />
+            </visor>
+
+            <visor id="visor-aviso-zap">
+                <header class="aviso-header">
+                    <title><i class="fab fa-whatsapp"></i>DISPARADOR WHATSAPP & COMANDO ESCRAVO</title>
+                    <button action="fecharAvisoZap()"><i class="fas fa-times"></i></button>
+                </header>
+                <list id="lista-aviso-zap" />
+            </visor>
+
+            <visor id="visor-detalhe-aviso">
+                <header>
+                    <title><i class="fas fa-edit"></i> CONFIGURAR MENSAGEM & LINKS</title>
+                    <button action="fecharDetalheAviso()"><i class="fas fa-times"></i></button>
+                </header>
+                <content class="detalhe-aviso-content">
+                    <info id="info-cliente-detalhe-zap">Cliente: ---</info>
+                    <field label="Mensagem de Aviso">
+                        <textarea id="txt-mensagem-custom" rows="5" />
+                    </field>
+                    <field label="Link de Cobrança (Pix)">
+                        <input type="text" id="txt-url-cobranca" />
+                    </field>
+                    <field label="Link do Instagram / Publicidade">
+                        <input type="text" id="txt-url-insta" />
+                    </field>
+                    <actions>
+                        <button action="enviarSeparado('cobranca')">ENVIAR COBRANÇA</button>
+                        <button action="enviarSeparado('publicidade')">ENVIAR PUBLICIDADE</button>
+                        <button action="enviarSeparado('aviso')">ENVIAR AVISO</button>
+                    </actions>
+                </content>
+            </visor>
+
+            <visor id="visor-cobranca-escravo">
+                <modal_box>
+                    <title><i class="fas fa-qrcode"></i> SOLICITAR PIX NO ESCRAVO</title>
+                    <info id="info-cliente-cobrar-escravo">---</info>
+                    <input type="text" id="input-valor-escravo" placeholder="Ex: 50,00" />
+                    <button action="enviarPixEscravoFinal()">SOLICITAR PIX NO ESCRAVO</button>
+                    <button action="fecharCobrancaEscravo()">CANCELAR</button>
+                </modal_box>
+            </visor>
+
+            <visor id="visor-clientes">
+                <header class="clientes-header">
+                    <title><i class="fas fa-users"></i>BASE DE CLIENTES & CADASTRO</title>
+                    <button action="fecharClientesModal()"><i class="fas fa-times"></i></button>
+                </header>
+                <form class="form-novo-cliente">
+                    <input type="text" id="novo-cli-nome" placeholder="Nome do Cliente" />
+                    <input type="text" id="novo-cli-zap" placeholder="WhatsApp (Ex: 92999999999)" />
+                    <input type="text" id="novo-cli-veiculo" placeholder="Veículo Padrão (Ex: Montana)" />
+                    <button action="salvarNovoClienteBase()">SALVAR CLIENTE NA BASE</button>
+                </form>
+                <list id="lista-clientes-base" />
+            </visor>
+
+            <visor id="visor-lavadores">
+                <header class="lavadores-header">
+                    <title><i class="fas fa-user-tie"></i>SELECIONE O LAVADOR</title>
+                    <button action="fecharLavadoresModal()"><i class="fas fa-times"></i></button>
+                </header>
+                <list class="lavadores-lista">
+                    <item action="selecionarLavadorDireto('JANAINA')">JANAINA</item>
+                    <item action="selecionarLavadorDireto('RICARDO')">RICARDO</item>
+                    <item action="selecionarLavadorDireto('NOVATO')">NOVATO</item>
+                </list>
+            </visor>
+
+            <visor id="visor-patio-lista">
+                <header class="patio-lista-header">
+                    <title><i class="fas fa-car"></i>VEÍCULOS NO PÁTIO (SELECIONE)</title>
+                    <button action="fecharPatioListaModal()"><i class="fas fa-times"></i></button>
+                </header>
+                <list id="lista-patio-modal-corpo" />
+            </visor>
+
+            <visor id="visor-letras-placa">
+                <header>
+                    <title id="titulo-grupo-letras">SELECIONE A OPÇÃO</title>
+                    <button action="fecharLetrasPlaca()">FECHAR</button>
+                </header>
+                <grid id="grid-letras-dinamico" class="letras-grid" />
+            </visor>
+
+            <visor id="visor-cores">
+                <header>
+                    <title>SELECIONE A COR DO VEÍCULO</title>
+                    <button action="fecharCores()">FECHAR</button>
+                </header>
+                <grid id="grid-cores-dinamico" class="cores-grid" />
+            </visor>
+
+            <visor id="visor-valor-manual">
+                <title>VALOR MANUAL DO SERVIÇO</title>
+                <display id="visor-valor-digitado">R$ 0,00</display>
+                <button action="confirmarValorManual()">CONFIRMAR VALOR</button>
+            </visor>
+
+            <cenario id="cenario">
+                <row id="fileira-a" class="fileira" />
+                <street class="rua">GOLD CAR WASH - FILA DE ESPERA & SERVIÇOS</street>
+                <row id="fileira-b" class="fileira" />
+            </cenario>
+
+            <visor_input id="visor-input">
+                <text id="texto-visor">NOME DO LAVADOR: ---</text>
+                <selectors class="seletor-tipo">
+                    <button id="btn-tipo-carro" action="alterarTipoVeiculo('CARRO')" active="true">CAR <badge id="contador-carro">0</badge></button>
+                    <button id="btn-tipo-moto" action="alterarTipoVeiculo('MOTO')">MOTO <badge id="contador-moto">0</badge></button>
+                    <button action="abrirLavadoresModal()">LAV</button>
+                    <button action="abrirPatioListaModal()">PÁT</button>
+                    <button action="abrirClientesModal()">CLI</button>
+                    <button action="abrirAvisoZap()">AVISO</button>
+                    <button action="abrirCaderninho()">CAD</button>
+                </selectors>
+            </visor_input>
+        </screen>
+
+        <keypad class="area-teclado">
+            <numeric_grid class="grid-numerico">
+                <key value="1" action="press('1')" />
+                <key value="2" action="press('2')" />
+                <key value="3" action="press('3')" />
+                <key value="4" action="press('4')" />
+                <key value="5" action="press('5')" />
+                <key value="6" action="press('6')" />
+                <key value="7" action="press('7')" />
+                <key value="8" action="press('8')" />
+                <key value="9" action="press('9')" />
+                <key value="X" action="resetTudo()" />
+                <key value="0" action="press('0')" />
+                <key value="OK" action="confirmarAcao()" />
+            </numeric_grid>
+            <action_grid class="grid-acoes">
+                <key action="finalizar('PIX')">PIX</key>
+                <key action="finalizar('DINHEIRO')">DINHEIRO</key>
+                <key action="finalizar('CARTAO')">CARTAO</key>
+                <key action="conectarBT()"><i class="fas fa-print"></i></key>
+            </action_grid>
+        </keypad>
+    </ui_components>
+</application>
